@@ -106,7 +106,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ dateRange, onDateRang
                 mode="single"
                 selected={date?.to}
                 onSelect={handleSelect}
-                disabled={(date) => date < (date?.from || new Date())}
+                disabled={(currentDate) => date?.from ? currentDate < date.from : false}
                 initialFocus
               />
             </PopoverContent>
