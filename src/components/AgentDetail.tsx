@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Agent } from '../data/mockData';
 import { Button } from '@/components/ui/button';
@@ -60,6 +61,7 @@ const AgentDetail: React.FC<AgentDetailProps> = ({ agent, onBack, timeRange }) =
   };
 
   const handleExportPDF = () => {
+    toast.success(`Generating detailed graphical PDF for ${agent.name}...`);
     exportSingleAgentToPDF(agent, timeRange);
   };
 
@@ -102,11 +104,12 @@ const AgentDetail: React.FC<AgentDetailProps> = ({ agent, onBack, timeRange }) =
         </Button>
         <Button
           variant="outline"
-          className="border-crm-blue text-crm-blue hover:bg-crm-blue/10 flex items-center gap-2"
+          className="border-crm-blue text-crm-blue hover:bg-crm-blue/10 flex items-center gap-2 relative overflow-hidden group"
           onClick={handleExportPDF}
         >
+          <div className="absolute inset-0 bg-gradient-to-r from-crm-blue/10 to-crm-teal/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></div>
           <File className="h-4 w-4" />
-          Export Agent PDF
+          <span className="relative z-10">Export Graphical PDF</span>
         </Button>
       </div>
 

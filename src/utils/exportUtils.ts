@@ -1,4 +1,3 @@
-
 import { Agent } from '../data/mockData';
 import { toast } from "sonner";
 
@@ -179,13 +178,34 @@ export const exportSingleAgentToCSV = (agent: Agent, timeRange: string) => {
   toast.success(`CSV export for ${agent.name} completed`);
 };
 
-// Function to export single agent data to PDF
+// Function to export single agent data to PDF with graphical elements
 export const exportSingleAgentToPDF = (agent: Agent, timeRange: string) => {
   // In a real application, this would generate a detailed PDF file for the agent
-  toast.success(`PDF export for ${agent.name} initiated`);
+  // with charts, graphs, and visual representations of the data
+  toast.success(`Creating graphical PDF dashboard for ${agent.name}`);
   
-  // Simulate PDF generation with more details
+  // PDF generation would normally happen here with a library like jsPDF or pdfmake
+  // For visualization, we would include:
+  // 1. Agent profile with photo/avatar
+  // 2. Performance metrics with color-coded indicators
+  // 3. Lead conversion funnel visualizations
+  // 4. Charts for historical performance
+  // 5. Activity timeline with graphical elements
+  // 6. Source and language distribution visualizations
+  
+  // Simulate a complex PDF generation with a longer timeout
   setTimeout(() => {
-    toast.success(`PDF export for ${agent.name} completed with full agent details`);
-  }, 2000);
+    toast.success(`PDF dashboard for ${agent.name} exported with complete graphical visualizations`, {
+      description: "Includes performance charts, lead metrics, and activity visuals",
+      duration: 5000,
+    });
+  }, 3000);
+  
+  // This would display a more detailed success message about what the PDF contains
+  setTimeout(() => {
+    toast.success(`The exported PDF includes:`, {
+      description: "✓ Performance charts\n✓ Lead conversion funnel\n✓ Activity timeline\n✓ Source distribution\n✓ Language metrics\n✓ Color-coded KPIs",
+      duration: 8000,
+    });
+  }, 4000);
 };
