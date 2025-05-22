@@ -28,7 +28,7 @@ const AgentLeadsChart: React.FC<AgentLeadsChartProps> = ({ agent }) => {
   const COLORS = ['#0EA5E9', '#14B8A6', '#6366F1', '#10B981', '#EF4444'];
   
   return (
-    <div className="h-[300px]">
+    <div className="h-[250px] md:h-[300px]">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -36,11 +36,16 @@ const AgentLeadsChart: React.FC<AgentLeadsChartProps> = ({ agent }) => {
             cx="50%"
             cy="50%"
             labelLine={false}
-            outerRadius={120}
+            outerRadius={90}
+            innerRadius={45}
             fill="#8884d8"
             dataKey="value"
             nameKey="name"
-            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+            label={({ name, percent }) => 
+              window.innerWidth < 768 
+                ? `${(percent * 100).toFixed(0)}%`
+                : `${name}: ${(percent * 100).toFixed(0)}%`
+            }
           >
             {leadStatusData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -49,7 +54,7 @@ const AgentLeadsChart: React.FC<AgentLeadsChartProps> = ({ agent }) => {
           <Tooltip 
             formatter={(value, name) => [`${value} leads`, name]}
           />
-          <Legend />
+          <Legend layout={window.innerWidth < 768 ? "horizontal" : "vertical"} align="center" verticalAlign="bottom" />
         </PieChart>
       </ResponsiveContainer>
     </div>

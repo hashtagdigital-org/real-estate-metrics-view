@@ -72,7 +72,7 @@ const AgentPerformanceMetrics: React.FC<AgentPerformanceMetricsProps> = ({ agent
                 <p className="text-xl font-bold mt-1 text-indigo-500">{agent.performance.followUpLeads}</p>
               </div>
               <div className="bg-white p-3 rounded-lg border text-center">
-                <p className="text-xs text-gray-500">No Action >24h</p>
+                <p className="text-xs text-gray-500">No Action &gt;24h</p>
                 <p className="text-xl font-bold mt-1 text-red-500">{agent.currentLeads?.noAction || 0}</p>
               </div>
             </div>

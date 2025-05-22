@@ -42,29 +42,29 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
 
   return (
     <Card className="mb-6 border shadow-sm">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 pt-4">
-        <div className="flex items-center space-x-4">
-          <Avatar className="h-12 w-12">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-2 pt-4 space-y-2 sm:space-y-0">
+        <div className="flex items-center space-x-3">
+          <Avatar className="h-10 w-10 sm:h-12 sm:w-12">
             <AvatarImage src={agent.avatar} alt={agent.name} />
             <AvatarFallback>{getInitials(agent.name)}</AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="text-lg font-bold">{agent.name}</h3>
-            <p className="text-sm text-gray-500">{agent.role}</p>
+            <h3 className="text-base sm:text-lg font-bold">{agent.name}</h3>
+            <p className="text-xs sm:text-sm text-gray-500">{agent.role}</p>
           </div>
         </div>
-        <div className="flex space-x-2">
-          <Badge variant="outline" className={getStatusColor('conversionRate', agent.performance.conversionRate)}>
+        <div className="flex space-x-2 flex-wrap gap-y-1">
+          <Badge variant="outline" className={`text-xs ${getStatusColor('conversionRate', agent.performance.conversionRate)}`}>
             {agent.performance.conversionRate}% Conversion
           </Badge>
-          <Badge variant="outline" className={getStatusColor('responseTime', agent.performance.responseTime)}>
+          <Badge variant="outline" className={`text-xs ${getStatusColor('responseTime', agent.performance.responseTime)}`}>
             {agent.performance.responseTime}h Response
           </Badge>
         </div>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
+          <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -97,20 +97,22 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
             </Table>
             <div className="mt-4 grid grid-cols-2 gap-2">
               <div className="text-center p-2 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500">Contact Info</p>
+                <p className="text-xs sm:text-sm text-gray-500">Contact Info</p>
                 <p className="text-xs mt-1">{agent.email}</p>
                 <p className="text-xs">{agent.phone}</p>
               </div>
               <div className="text-center p-2 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500">Performance</p>
+                <p className="text-xs sm:text-sm text-gray-500">Performance</p>
                 <p className="text-xs mt-1">{agent.performance.closedLeads} Closed / {agent.performance.newLeads} New</p>
                 <p className="text-xs">{((agent.performance.closedLeads / agent.performance.newLeads) * 100).toFixed(1)}% Success</p>
               </div>
             </div>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-2">Performance Trend</h4>
-            <PerformanceChart agent={agent} />
+            <h4 className="text-xs sm:text-sm font-medium mb-2">Performance Trend</h4>
+            <div className="h-[200px] sm:h-[250px]">
+              <PerformanceChart agent={agent} />
+            </div>
           </div>
         </div>
       </CardContent>

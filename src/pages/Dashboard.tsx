@@ -63,10 +63,10 @@ const Dashboard: React.FC = () => {
     : null;
 
   return (
-    <div className="container mx-auto p-4 md:p-6">
+    <div className="container mx-auto px-4 md:px-6">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold">Agent Performance Dashboard</h1>
-        <p className="text-gray-500">Track and analyze your team's performance metrics</p>
+        <h1 className="text-2xl md:text-3xl font-bold">Agent Performance Dashboard</h1>
+        <p className="text-gray-500 text-sm md:text-base">Track and analyze your team's performance metrics</p>
       </div>
 
       <FilterBar
@@ -79,7 +79,7 @@ const Dashboard: React.FC = () => {
       {showDateRangePicker && (
         <div className="mb-6 p-4 bg-white rounded-lg shadow-sm border">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-medium">Custom Date Range</h3>
+            <h3 className="text-base md:text-lg font-medium">Custom Date Range</h3>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -98,7 +98,7 @@ const Dashboard: React.FC = () => {
       {!selectedAgent ? (
         <>
           <MetricsOverview metrics={metrics} />
-          <h2 className="text-2xl font-bold mb-4">Agent Performance</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4">Agent Performance</h2>
           <AgentsList agents={agents} onAgentSelect={handleAgentSelect} />
         </>
       ) : (
