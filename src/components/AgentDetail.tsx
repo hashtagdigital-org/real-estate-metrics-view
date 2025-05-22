@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Agent } from '../data/mockData';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, FileText, FilePdf, FileImage } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import AgentActivityChart from './AgentActivityChart';
 import AgentLeadsChart from './AgentLeadsChart';
 import AgentPerformanceMetrics from './AgentPerformanceMetrics';
+import { exportSingleAgentToCSV, exportSingleAgentToPDF } from '../utils/exportUtils';
 
 interface AgentDetailProps {
   agent: Agent;
@@ -55,6 +56,14 @@ const AgentDetail: React.FC<AgentDetailProps> = ({ agent, onBack, timeRange }) =
     }
   };
 
+  const handleExportCSV = () => {
+    exportSingleAgentToCSV(agent, timeRange);
+  };
+
+  const handleExportPDF = () => {
+    exportSingleAgentToPDF(agent, timeRange);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -81,6 +90,25 @@ const AgentDetail: React.FC<AgentDetailProps> = ({ agent, onBack, timeRange }) =
             </p>
           </div>
         </div>
+      </div>
+
+      <div className="flex flex-wrap gap-2 justify-end">
+        <Button
+          variant="outline"
+          className="border-crm-teal text-crm-teal hover:bg-crm-teal/10 flex items-center gap-2"
+          onClick={handleExportCSV}
+        >
+          <FileText className="h-4 w-4" />
+          Export Agent CSV
+        </Button>
+        <Button
+          variant="outline"
+          className="border-crm-blue text-crm-blue hover:bg-crm-blue/10 flex items-center gap-2"
+          onClick={handleExportPDF}
+        >
+          <FilePdf className="h-4 w-4" />
+          Export Agent PDF
+        </Button>
       </div>
 
       <Tabs defaultValue="performance" className="w-full">

@@ -87,3 +87,105 @@ export const exportToPDF = (agents: Agent[], timeRange: string) => {
     toast.success('PDF file exported successfully');
   }, 2000);
 };
+
+// Function to export single agent data to CSV
+export const exportSingleAgentToCSV = (agent: Agent, timeRange: string) => {
+  // Create CSV header with detailed agent information
+  const header = [
+    'Agent Name',
+    'Email',
+    'Phone',
+    'Role',
+    'New Leads',
+    'Contacted Leads',
+    'Follow Up Leads',
+    'Closed Leads',
+    'Rejected Leads',
+    'Conversion Rate (%)',
+    'Response Time (hrs)',
+    'Total Activity (hrs)',
+    'Viewings Conducted',
+    'Pending Leads',
+    'No Action Leads',
+    'Leads < 24h',
+    'Leads 24h-48h',
+    'Leads 48h-72h',
+    'Leads > 72h',
+  ].join(',');
+
+  // Create CSV row for the single agent with detailed metrics
+  const row = [
+    `"${agent.name}"`,
+    `"${agent.email}"`,
+    `"${agent.phone}"`,
+    `"${agent.role}"`,
+    agent.performance.newLeads,
+    agent.performance.contactedLeads,
+    agent.performance.followUpLeads,
+    agent.performance.closedLeads,
+    agent.performance.rejectedLeads,
+    agent.performance.conversionRate,
+    agent.performance.responseTime,
+    agent.activityStats?.totalHours || 0,
+    agent.activityStats?.viewings || 0,
+    agent.currentLeads?.pending || 0,
+    agent.currentLeads?.noAction || 0,
+    agent.pendingLeadTimes?.lessThan24h || 0,
+    agent.pendingLeadTimes?.between24hAnd48h || 0,
+    agent.pendingLeadTimes?.between48hAnd72h || 0,
+    agent.pendingLeadTimes?.moreThan72h || 0,
+  ].join(',');
+
+  // Add lead source data
+  let csvContent = [header, row].join('\n') + '\n\n';
+  
+  // Add lead sources section if available
+  if (agent.leadsBySource && agent.leadsBySource.length > 0) {
+    csvContent += '\nLEAD SOURCES\n';
+    csvContent += 'Source,Count,Percentage\n';
+    agent.leadsBySource.forEach(source => {
+      csvContent += `"${source.name}",${source.count},${source.percentage}\n`;
+    });
+  }
+  
+  // Add lead languages section if available
+  if (agent.leadsByLanguage && agent.leadsByLanguage.length > 0) {
+    csvContent += '\nLEAD LANGUAGES\n';
+    csvContent += 'Language,Count,Percentage\n';
+    agent.leadsByLanguage.forEach(lang => {
+      csvContent += `"${lang.name}",${lang.count},${lang.percentage}\n`;
+    });
+  }
+
+  // Add notes section if available (excluding private content)
+  if (agent.adminNotes && agent.adminNotes.length > 0) {
+    csvContent += '\nNOTES (Date only)\n';
+    agent.adminNotes.forEach(note => {
+      csvContent += `"${new Date(note.timestamp).toLocaleDateString()}"\n`;
+    });
+  }
+
+  // Create a blob and download the file
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', `agent-${agent.name.replace(/\s+/g, '-').toLowerCase()}-${timeRange}-${new Date().toISOString().split('T')[0]}.csv`);
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  toast.success(`CSV export for ${agent.name} completed`);
+};
+
+// Function to export single agent data to PDF
+export const exportSingleAgentToPDF = (agent: Agent, timeRange: string) => {
+  // In a real application, this would generate a detailed PDF file for the agent
+  toast.success(`PDF export for ${agent.name} initiated`);
+  
+  // Simulate PDF generation with more details
+  setTimeout(() => {
+    toast.success(`PDF export for ${agent.name} completed with full agent details`);
+  }, 2000);
+};
