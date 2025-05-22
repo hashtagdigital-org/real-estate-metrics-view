@@ -5,11 +5,23 @@ import { toast } from "sonner";
 // Function to filter agents based on time range
 export const filterAgentsByTimeRange = (
   agents: Agent[], 
-  timeRange: 'day' | 'week' | 'month' | 'year' | 'all'
+  timeRange: 'day' | 'week' | 'month' | 'year' | 'all' | 'custom'
 ): Agent[] => {
   // In a real application, this would filter based on actual date ranges
   // For this mock, we'll just return the original data
   toast.success(`Filtered data for time range: ${timeRange}`);
+  return agents;
+};
+
+// Function to filter agents by custom date range
+export const filterAgentsByCustomRange = (
+  agents: Agent[],
+  fromDate: Date,
+  toDate: Date
+): Agent[] => {
+  // In a real application, this would filter based on the specified date range
+  // For this mock, we'll just return the original data
+  toast.success(`Filtered data from ${fromDate.toDateString()} to ${toDate.toDateString()}`);
   return agents;
 };
 
@@ -28,6 +40,8 @@ export const exportToCSV = (agents: Agent[], timeRange: string) => {
     'Rejected Leads',
     'Conversion Rate (%)',
     'Response Time (hrs)',
+    'Total Activity (hrs)',
+    'Viewings Conducted',
   ].join(',');
 
   // Create CSV rows
@@ -43,6 +57,8 @@ export const exportToCSV = (agents: Agent[], timeRange: string) => {
     agent.performance.rejectedLeads,
     agent.performance.conversionRate,
     agent.performance.responseTime,
+    agent.activityStats?.totalHours || 0,
+    agent.activityStats?.viewings || 0,
   ].join(','));
 
   // Combine header and rows

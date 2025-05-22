@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/select";
 
 interface FilterBarProps {
-  timeRange: 'day' | 'week' | 'month' | 'year' | 'all';
-  setTimeRange: (range: 'day' | 'week' | 'month' | 'year' | 'all') => void;
+  timeRange: 'day' | 'week' | 'month' | 'year' | 'all' | 'custom';
+  setTimeRange: (range: 'day' | 'week' | 'month' | 'year' | 'all' | 'custom') => void;
   onExportCSV: () => void;
   onExportPDF: () => void;
 }
@@ -41,6 +41,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
             <SelectItem value="month">This Month</SelectItem>
             <SelectItem value="year">This Year</SelectItem>
             <SelectItem value="all">All Time</SelectItem>
+            <SelectItem value="custom">Custom Range</SelectItem>
           </SelectContent>
         </Select>
       </div>
