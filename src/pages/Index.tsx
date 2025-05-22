@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import { FileText, FilePdf } from 'lucide-react';
+import { FileText, File } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -22,7 +22,7 @@ const Index = () => {
                 <span>Export agent details as CSV</span>
               </li>
               <li className="flex items-center gap-2">
-                <FilePdf className="h-4 w-4 text-indigo-600" />
+                <File className="h-4 w-4 text-indigo-600" />
                 <span>Export agent details as PDF</span>
               </li>
               <li className="flex items-center gap-2">
